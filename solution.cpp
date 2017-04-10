@@ -27,8 +27,14 @@ public:
   shared_ptr<Node<T>> previous;
   T value;
   ~Node() {
-    next = nullptr;
-    previous = nullptr;
+  	if(next){
+    next->previous = previous;
+}
+	if(previous){
+    previous->next = next;
+}
+    previous=nullptr;
+    next=nullptr;
   }
 };
 
