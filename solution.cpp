@@ -137,30 +137,30 @@ template <typename T> shared_ptr<Node<T>> List<T>::getBackward(const T value) {
 }
 
 int main() {
-  List<string> lista;
+  unique_ptr<List<string>> lista;
   auto nodeNapis = make_shared<Node<string>>("napis");
   auto nodeHello = make_shared<Node<string>>("hello");
   cout << "Empty list exceptions:" << endl;
   cout << "------------------------------" << endl;
   try {
-    auto node = lista.get("text");
+    auto node = lista->get("text");
   } catch (const EmptyListError &e) {
     cout << e.what() << endl;
   }
   cout << "------------------------------" << endl << endl;
 
-  lista.add(nodeNapis);
-  lista.add(move(nodeHello));
+  lista->add(nodeNapis);
+  lista->add(move(nodeHello));
 
   cout << "Nullptr exceptions:" << endl;
   cout << "------------------------------" << endl;
   try {
-    lista.add(move(nodeHello));
+    lista->add(move(nodeHello));
   } catch (const NullNodeError &e) {
     cout << e.what() << endl;
   }
   try {
-    lista.add(nullptr);
+    lista->add(nullptr);
   } catch (const NullNodeError &e) {
     cout << e.what() << endl;
   }
@@ -168,12 +168,12 @@ int main() {
   cout << "Not found exceptions:" << endl;
   cout << "------------------------------" << endl;
   try {
-    auto node = lista.get("text");
+    auto node = lista->get("text");
   } catch (const NotFoundError &e) {
     cout << e.what() << endl;
   }
   try {
-    auto node = lista.getBackward("text");
+    auto node = lista->getBackward("text");
   } catch (const NotFoundError &e) {
     cout << e.what() << endl;
   }
